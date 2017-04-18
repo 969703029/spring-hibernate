@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.framestudy.spring_hibernate.usermag.beans.UserBean;
+import org.framestudy.spring_hibernate.usermag.pojos.Pager;
 import org.framestudy.spring_hibernate.usermag.pojos.User;
 
 public interface IUserService {
@@ -49,8 +50,12 @@ public interface IUserService {
 	 */
 	public List<UserBean> findUserListByObject(User user);
 	
-	
-	
-	
+	public Pager findUserListByObjectToPager(Pager page,User user);
+	/**
+	 * Hibernate实现除了构造之外的，想查什么就查什么
+	 * @param user
+	 * @return
+	 */
+	public List<?> findUserListByObjectToMap(User user);
 	
 }

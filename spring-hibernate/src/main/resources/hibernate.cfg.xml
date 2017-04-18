@@ -38,7 +38,16 @@
 		
 		<!-- 最后完成映射 -->
 		<mapping resource="org/framestudy/spring_hibernate/usermag/xmls/UserBean.xml"/>
-		
-		
+		<mapping resource="org/framestudy/spring_hibernate/personmag/xmls/Person.xml"/>
+		<mapping resource="org/framestudy/spring_hibernate/personmag/xmls/PersonInfo.xml"/>
+		<mapping resource="org/framestudy/spring_hibernate/personmag/xmls/Address.xml"/>
+		<mapping resource="org/framestudy/spring_hibernate/relationmag/xmls/Husband.xml"/>
+		<mapping resource="org/framestudy/spring_hibernate/relationmag/xmls/Wife.xml"/>
+		<mapping resource="org/framestudy/spring_hibernate/relationmag/xmls/ClassInfo.xml"/>
+		<mapping resource="org/framestudy/spring_hibernate/relationmag/xmls/StudentInfo.xml"/>
+	
+	
+	
+	
 	</session-factory>
 </hibernate-configuration>

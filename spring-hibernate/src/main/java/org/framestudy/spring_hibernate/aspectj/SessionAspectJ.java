@@ -37,13 +37,13 @@ public class SessionAspectJ {
 	@AfterReturning(returning="rvt",pointcut="execution(* org.framestudy.spring_hibernate.*mag.dao.impl.*.*(..))")
 	public void afterReturningAdvice(JoinPoint jp,Object rvt){
 		tx.commit();
-		session.close();
+//		session.close();
 	}
 	
 	@AfterThrowing(throwing="exc",pointcut="execution(* org.framestudy.spring_hibernate.*mag.dao.impl.*.*(..))")
 	public void afterThrowingAdvice(JoinPoint jp,Object exc){
 		tx.rollback();
-		session.close();
+//		session.close();
 	}
 	
 }

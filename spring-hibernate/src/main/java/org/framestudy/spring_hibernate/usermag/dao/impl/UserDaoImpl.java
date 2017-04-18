@@ -5,10 +5,17 @@ import java.util.Map;
 
 import org.framestudy.spring_hibernate.usermag.beans.UserBean;
 import org.framestudy.spring_hibernate.usermag.dao.IUserDao;
+import org.framestudy.spring_hibernate.usermag.pojos.Pager;
 import org.framestudy.spring_hibernate.usermag.pojos.User;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -113,14 +120,54 @@ public class UserDaoImpl implements IUserDao {
 		return query.list();
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public Pager findUserListByObjectToPager(Pager page, User user) {
+		// TODO Auto-generated method stub
+//		//先查符合条件的总行数
+//		String hql = "select count(u.id) from UserBean as u where u.userName like CONCAT(:userName,'%') and u.age = :age";
+//		Query query = session.createQuery(hql);
+//		query.setProperties(user);
+//		Long totalRows = (Long) query.uniqueResult();
+//		page.setTotalRows(Integer.parseInt(String.valueOf(totalRows)));//总行数
+//		
+//		//在查符合条件的具体数据
+//		hql = "from UserBean as u where u.userName like CONCAT(:userName,'%') and u.age = :age";
+//		query = session.createQuery(hql);
+//		query.setProperties(user);
+//		query.setFirstResult(page.getIndex());//limit后的第一个参数
+//		query.setMaxResults(page.getRows());//limit后的第二个参数
+//		List<?> datas = query.list();
+//		page.setDatas(datas);
+		
+		
+		
+		//不常用，即便用了，也会重新恢复成上述的方式
+		//原因是：1、结构不清晰，2、无法调优，性能低下
+		Criteria criteria = session.createCriteria(UserBean.class);//From UserBean
+		//MatchMode.START 表示以查询条件开始，向后查
+		criteria.add(Restrictions.like("userName", user.getUserName(),MatchMode.START));
+		criteria.add(Restrictions.eq("age", user.getAge()));
+		
+		//查询总行数
+		Long totalRows = (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
+		page.setTotalRows(Integer.parseInt(String.valueOf(totalRows)));
+		
+		criteria.setProjection(null);//清空投影
+		criteria.setFirstResult(page.getIndex());
+		criteria.setMaxResults(page.getRows());
+		List<?> datas = criteria.list();
+		page.setDatas(datas);
+		return page;
+	}
+
+	@Override
+	public List<?> findUserListByObjectToMap(User user) {
+		// TODO Auto-generated method stub
+		
+		String hql = "select new map(user.userName as userName,user.loginName as loginName) From UserBean as user where user.userName like CONCAT(:userName,'%')";
+		Query query = session.createQuery(hql);//Query查询接口主要工作是：预编译HQL语句
+		query.setString("userName", user.getUserName());
+		
+		return query.list();
+		
+	}
 }

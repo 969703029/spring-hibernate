@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.framestudy.spring_hibernate.usermag.beans.UserBean;
+import org.framestudy.spring_hibernate.usermag.pojos.Pager;
 import org.framestudy.spring_hibernate.usermag.pojos.User;
 import org.framestudy.spring_hibernate.usermag.service.IUserService;
 import org.junit.Ignore;
@@ -22,11 +23,30 @@ public class TestUserService {
 	@Resource
 	private IUserService userServiceImpl;
 
+	
+	
+	
+	
 	@Test
+	public void testFindUserListByObjectToPager(){
+		Pager pager = new Pager(2, 8);
+		User user = new User("小", 18);
+		pager = userServiceImpl.findUserListByObjectToPager(pager, user);
+		System.out.println(pager);
+	}
+	
+	
+	@Ignore
 	public void testFindUserListByObject() {
-		List<?> users = userServiceImpl.findUserListByObject(new User("小", 18));
+//		List<?> users = userServiceImpl.findUserListByObject(new User("小", 18));
 
+		List<?> users = userServiceImpl.findUserListByObjectToMap(new User("小", 18));
 		System.out.println(users);
+		for (Object object : users) {
+			Map map = (Map) object;
+			System.out.println(map.get("userName"));
+		}
+		
 	}
 
 	@Ignore

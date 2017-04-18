@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.framestudy.spring_hibernate.usermag.beans.UserBean;
 import org.framestudy.spring_hibernate.usermag.dao.IUserDao;
+import org.framestudy.spring_hibernate.usermag.pojos.Pager;
 import org.framestudy.spring_hibernate.usermag.pojos.User;
 import org.framestudy.spring_hibernate.usermag.service.IUserService;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,17 @@ public class UserServiceImpl implements IUserService {
 	public List<UserBean> findUserListByObject(User user) {
 		// TODO Auto-generated method stub
 		return userDaoImpl.findUserListByObject(user);
+	}
+
+	public Pager findUserListByObjectToPager(Pager page, User user) {
+		// TODO Auto-generated method stub
+		return userDaoImpl.findUserListByObjectToPager(page, user);
+	}
+
+	@Override
+	public List<?> findUserListByObjectToMap(User user) {
+		// TODO Auto-generated method stub
+		return userDaoImpl.findUserListByObjectToMap(user);
 	}
 
 }
