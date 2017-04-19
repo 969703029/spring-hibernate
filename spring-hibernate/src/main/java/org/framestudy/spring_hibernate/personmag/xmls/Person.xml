@@ -19,7 +19,8 @@
 		
 		<!-- 配置单向的1对1 -->
 		<!-- cascade="all" 级联，表示主表干任何事情，从表都跟着干 -->
-		<one-to-one name="info" class="org.framestudy.spring_hibernate.personmag.beans.PersonInfo" cascade="all" foreign-key="fk_person_id" fetch="select" lazy="proxy"></one-to-one>
+		<many-to-one name="info" unique="true" cascade="all" class="org.framestudy.spring_hibernate.personmag.beans.PersonInfo" column="fk_info_id" lazy="false"></many-to-one>
+		
 		
 		<!-- 配置单向的1对多 -->
 		<set name="adds" lazy="true" fetch="select">

@@ -12,7 +12,6 @@ public class PersonInfo implements Serializable {
 	private Long id;
 	private String msg;//人员身份信息简介
 	private String idCard;//身份证
-	private Long fkPersonId;
 	
 	public PersonInfo() {
 		super();
@@ -25,13 +24,6 @@ public class PersonInfo implements Serializable {
 		this.idCard = idCard;
 	}
 	
-	public PersonInfo(Long id, String msg, String idCard, Long fkPersonId) {
-		super();
-		this.id = id;
-		this.msg = msg;
-		this.idCard = idCard;
-		this.fkPersonId = fkPersonId;
-	}
 	public Long getId() {
 		return id;
 	}
@@ -51,15 +43,9 @@ public class PersonInfo implements Serializable {
 		this.idCard = idCard;
 	}
 	
-	public Long getFkPersonId() {
-		return fkPersonId;
-	}
-	public void setFkPersonId(Long fkPersonId) {
-		this.fkPersonId = fkPersonId;
-	}
 	@Override
 	public String toString() {
-		return "PersonInfo [id=" + id + ", msg=" + msg + ", idCard=" + idCard + ", fkPersonId=" + fkPersonId + "]";
+		return "PersonInfo [id=" + id + ", msg=" + msg + ", idCard=" + idCard + "]";
 	}
 	
 	

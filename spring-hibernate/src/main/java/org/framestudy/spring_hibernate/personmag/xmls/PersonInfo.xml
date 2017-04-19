@@ -15,8 +15,5 @@
 		<property name="idCard" type="java.lang.String">
 			<column name="idcard" length="18"></column>
 		</property>
-		<property name="fkPersonId" type="long">
-			<column name="fk_person_id"></column>
-		</property>
 	</class>
 </hibernate-mapping>

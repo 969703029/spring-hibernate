@@ -27,7 +27,7 @@ public class TestPersonService {
 		List<?> list = personServiceImpl.getPersonByPersonInfo("这是");
 		Person person = (Person) list.get(0);
 		System.out.println(person.getName());
-//		System.out.println(person.getAdds());
+		System.out.println(person.getAdds());
 	}
 	
 	@Ignore
