@@ -27,7 +27,7 @@ public class TestUserService {
 	
 	
 	
-	@Test
+	@Ignore
 	public void testFindUserListByObjectToPager(){
 		Pager pager = new Pager(2, 8);
 		User user = new User("小", 18);
@@ -61,11 +61,25 @@ public class TestUserService {
 		System.out.println(users);
 	}
 
-	@Ignore
+	@Test
 	public void testFindUserListByUserName() {
 
 		List<?> users = userServiceImpl.findUserListByUserName("小");
 		System.out.println(users);
+		
+		
+		
+		List<?> users2 = userServiceImpl.findUserListByUserName("大");
+		System.out.println(users2);
+		
+		
+		
+		List<?> users3 = userServiceImpl.findUserListByUserName("小");
+		System.out.println(users3);
+		
+		
+		
+		
 	}
 
 	@Ignore

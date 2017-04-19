@@ -1,0 +1,29 @@
+<ehcache>
+
+    <diskStore path="java.io.tmpdir"/>
+    
+    <!-- <diskStore path="java.io.tmpdir"/> 代表是将缓存数据放入到内存中，
+    那么除了可以放置在内存中以外，我们还可以自己定义磁盘缓存空间：
+    例如：path="d:/cache" -->
+    
+    <defaultCache
+        maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="true"
+        memoryStoreEvictionPolicy="LFU"
+        />
+        
+        <!--  maxElementsInMemory="10000" 缓存中可以放置的对象的数量 -->
+        <!--  eternal="false" 设置缓存是否永久有效，模式是false无效 -->
+        <!-- timeToIdleSeconds="120" 设置缓存中空闲对象，能够在缓存中所能存活的时间 -->
+       	<!-- timeToLiveSeconds="120" 设置使用过的缓存对象，能够在缓存中所能继续存活的时间--> 
+        <!-- overflowToDisk="true" 当内存中不足以支撑缓存数据时，是否将数据写入到磁盘中 -->
+        
+        <!-- 3种缓存清理策略 -->
+        <!-- FIFO first in first out 先进先出 -->
+        <!-- LFU less frequently Used 缓存开启以来最少使用 -->
+        <!-- LRU less recently Used 最近最少使用 -->
+        
+</ehcache>

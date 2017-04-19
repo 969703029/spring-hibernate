@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="org.framestudy.spring_hibernate.relationmag.beans.Wife" catalog="spring_hibernate" table="t_wife">
+		<id name="id" type="java.lang.Long">
+			<column name="id"></column>
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="name" type="java.lang.String">
+			<column name="wife_name" length="20"></column>
+		</property>
+		
+		<!-- 外键在t_wife表中，所以Wife这个对象，就是多的一方 -->
+		<!-- unique="true" 表示将多的一方唯一化 -->
+		<many-to-one name="hus" class="org.framestudy.spring_hibernate.relationmag.beans.Husband" unique="true" column="fk_hus_id" not-null="true"></many-to-one>
+	</class>
+</hibernate-mapping>

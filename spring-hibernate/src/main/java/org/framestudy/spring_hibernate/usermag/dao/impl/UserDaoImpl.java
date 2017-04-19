@@ -92,7 +92,7 @@ public class UserDaoImpl implements IUserDao {
 		
 		//Hibernate中实现想查啥就查啥，但是需要定义对象的构造器
 		String hql = "select new UserBean(user.userName,user.loginName) From UserBean as user where user.userName like CONCAT(:userName,'%')";
-		Query query = session.createQuery(hql);//Query查询接口主要工作是：预编译HQL语句
+		Query query = session.createQuery(hql).setCacheable(true);//Query查询接口主要工作是：预编译HQL语句
 		query.setString("userName", name);
 		
 		return query.list();
@@ -123,39 +123,39 @@ public class UserDaoImpl implements IUserDao {
 	public Pager findUserListByObjectToPager(Pager page, User user) {
 		// TODO Auto-generated method stub
 //		//先查符合条件的总行数
-//		String hql = "select count(u.id) from UserBean as u where u.userName like CONCAT(:userName,'%') and u.age = :age";
-//		Query query = session.createQuery(hql);
-//		query.setProperties(user);
-//		Long totalRows = (Long) query.uniqueResult();
-//		page.setTotalRows(Integer.parseInt(String.valueOf(totalRows)));//总行数
-//		
-//		//在查符合条件的具体数据
-//		hql = "from UserBean as u where u.userName like CONCAT(:userName,'%') and u.age = :age";
-//		query = session.createQuery(hql);
-//		query.setProperties(user);
-//		query.setFirstResult(page.getIndex());//limit后的第一个参数
-//		query.setMaxResults(page.getRows());//limit后的第二个参数
-//		List<?> datas = query.list();
-//		page.setDatas(datas);
+		String hql = "select count(u.id) from UserBean as u where u.userName like CONCAT(:userName,'%') and u.age = :age";
+		Query query = session.createQuery(hql);
+		query.setProperties(user);
+		Long totalRows = (Long) query.uniqueResult();
+		page.setTotalRows(Integer.parseInt(String.valueOf(totalRows)));//总行数
+		
+		//在查符合条件的具体数据
+		hql = "from UserBean as u where u.userName like CONCAT(:userName,'%') and u.age = :age";
+		query = session.createQuery(hql);
+		query.setProperties(user);
+		query.setFirstResult(page.getIndex());//limit后的第一个参数
+		query.setMaxResults(page.getRows());//limit后的第二个参数
+		List<?> datas = query.list();
+		page.setDatas(datas);
 		
 		
 		
 		//不常用，即便用了，也会重新恢复成上述的方式
 		//原因是：1、结构不清晰，2、无法调优，性能低下
-		Criteria criteria = session.createCriteria(UserBean.class);//From UserBean
-		//MatchMode.START 表示以查询条件开始，向后查
-		criteria.add(Restrictions.like("userName", user.getUserName(),MatchMode.START));
-		criteria.add(Restrictions.eq("age", user.getAge()));
-		
-		//查询总行数
-		Long totalRows = (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
-		page.setTotalRows(Integer.parseInt(String.valueOf(totalRows)));
-		
-		criteria.setProjection(null);//清空投影
-		criteria.setFirstResult(page.getIndex());
-		criteria.setMaxResults(page.getRows());
-		List<?> datas = criteria.list();
-		page.setDatas(datas);
+//		Criteria criteria = session.createCriteria(UserBean.class);//From UserBean
+//		//MatchMode.START 表示以查询条件开始，向后查
+//		criteria.add(Restrictions.like("userName", user.getUserName(),MatchMode.START));
+//		criteria.add(Restrictions.eq("age", user.getAge()));
+//		
+//		//查询总行数
+//		Long totalRows = (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
+//		page.setTotalRows(Integer.parseInt(String.valueOf(totalRows)));
+//		
+//		criteria.setProjection(null);//清空投影
+//		criteria.setFirstResult(page.getIndex());
+//		criteria.setMaxResults(page.getRows());
+//		List<?> datas = criteria.list();
+//		page.setDatas(datas);
 		return page;
 	}
 
